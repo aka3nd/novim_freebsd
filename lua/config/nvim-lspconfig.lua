@@ -32,6 +32,32 @@ require("lspconfig").clangd.setup({
 	cmd = {"/usr/local/bin/clangd18"},
 	filetypes = {"cpp", "c"},
 })
+
+require("lspconfig").rust_analyzer.setup({
+	capabilities = capabilities,
+	--cmd = {"rust-analyzer"},
+	cmd = {"/usr/local/bin/rust-analyzer"},
+	filetypes = {"rust"},
+	single_file_support = true,
+	settings = {
+        ["rust-analyzer"] = {
+            cargo = {
+                allFeatures = true,
+            },
+            checkOnSave = {
+                --command = "clippy", -- Gunakan `clippy` untuk analisis kode lebih ketat
+                command = "check",
+            },
+            procMacro = {
+                enable = true,
+            },
+            files = {
+                watcher = "client", -- Paksa mode single file tanpa Cargo
+            },
+        },
+    },
+})
+
 require("lspconfig").gopls.setup({
 	capabilities = capabilities,
 	cmd = {"gopls"},
@@ -51,7 +77,7 @@ require("lspconfig").gopls.setup({
 
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { "cssls", "pyright", "ts_ls", "gopls","rust_analyzer" }
+local servers = { "cssls", "pyright", "ts_ls"}
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
 		-- on_attach = my_custom_on_attach,
