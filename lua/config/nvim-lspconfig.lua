@@ -18,14 +18,13 @@ require("lspconfig").bashls.setup({
 	cmd = { "bash-language-server", "start" },
 	filetypes = { "bash", "sh" },
 })
-require("lspconfig").lua_ls.setup({
+
+require("lspconfig").lua_ls.setup ({
 	capabilities = capabilities,
-	cmd = {"lua-language-server"},
-	--cmd = {"/home/aka/.local/share/nvim/mason/packages/lua-language-server/libexec/bin/lua-language-server"},
-	filetypes = { "lua" },
-	--root_dir = util.root_pattern(root_files),
-	single_file_support = true,
+  cmd = { "/home/aka/.local/share/nvim/mason/packages/lua-language-server/bin/lua-language-server" },
+  filetypes = {"lua"},
 })
+
 
 require("lspconfig").clangd.setup({
 	capabilities = capabilities,
@@ -60,7 +59,7 @@ require("lspconfig").rust_analyzer.setup({
 
 require("lspconfig").gopls.setup({
 	capabilities = capabilities,
-	cmd = {"gopls"},
+	cmd = {"/usr/local/bin/gopls"},
 	filetypes = {"go"},
 	root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
     settings = {
